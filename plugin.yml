@@ -1,0 +1,40 @@
+main: me.Prunt.simplejail.Main
+author: Prunt
+version: 2.1
+name: SimpleJail
+website: https://www.spigotmc.org/resources/simplejail.10079/
+description: Very simple plugin to jail rulebreakers for a specified time!
+
+commands:
+  jail:
+    permission: simplejail.jail
+    description: Jail criminals.
+  unjail:
+    permission: simplejail.unjail
+    description: Release jailed players.
+  checkjail:
+    permission: simplejail.checkjail
+    description: Check if player is jailed.
+  setjail:
+    permission: simplejail.setjail
+    description: Set a point where jailed players are teleported to.
+  setunjail:
+    permission: simplejail.setunjail
+    description: Set a point where players are teleported after being released from jail.
+  simplejail:
+    permission: simplejail.reload
+    description: Reload config file.
+
+permissions:
+  simplejail.jail:
+    default: op
+  simplejail.unjail:
+    default: op
+  simplejail.checkjail:
+    default: op
+  simplejail.setjail:
+    default: op
+  simplejail.setunjail:
+    default: op
+  simplejail.reload:
+    default: op

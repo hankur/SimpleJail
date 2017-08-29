@@ -1,0 +1,66 @@
+# List of messages you can edit
+messages:
+    # Message sent after successful reload
+    reload: "&aConfiguration file reloaded!"
+    # Message sent after successful unjail
+    unjail-success: "&aSuccessfully unjailed player %player%!"
+    # Message sent after unsuccessful unjail
+    unjail-fail: "&cFailed to unjail player %player%! Check spelling?"
+    # Message sent after successful jailing
+    jail-success: "&aSuccessfully jailed player %player%! Until: %until%. Reason: %reason%"
+    # Message sent after unsuccessful jailing
+    jail-fail: "&cFailed to jail player %player%!"
+    # Message sent after successful setting of jail point
+    setjail-success: "&aSuccessfully set jail point!"
+    # Message sent after successful setting of unjail point
+    setunjail-success: "&aSuccessfully set unjail point!"
+    # Message sent when console tries to set jail/unjail point
+    console-error: "&cOnly players can use this command!"
+    # Message sent when there is not enough arguments for a command
+    not-enough-arguments: "&cNot enough arguments!"
+    # Message sent when there are too many arguments for a command
+    too-many-arguments: "&cToo many arguments!"
+    # Message sent when the time is not in acceptable format in /jail command
+    wrong-time-format: "&cProvided time is not in valid format!"
+    # Message sent to jailed players when they have been jailed
+    you-have-been-jailed: "&cYou have been jailed! Until: %until%. Reason: %reason%"
+    # Message sent to players who are teleported to jail (on respawn or login)
+    still-jailed: "&cYou are still jailed. Until: %until%. Reason: %reason%"
+    # Message sent to players when they are released from jail
+    you-have-been-unjailed: "&aYou have been unjailed!"
+    # Message sent when there is wrong amount of arguments in /jail command
+    correct-usage-jail: "&cCorrect usage: /jail <player> <time> <reason>"
+    # Message sent when there is wrong amount of arguments in /unjail command
+    correct-usage-unjail: "&cCorrect usage: /unjail <player>"
+    # Message sent when there is wrong amount of arguments in /setjail command
+    correct-usage-setjail: "&cCorrect usage: /setjail"
+    # Message sent when there is wrong amount of arguments in /setunjail command
+    correct-usage-setunjail: "&cCorrect usage: /setunjail"
+    # Message sent when specified player is not jailed
+    checkjail-not-jailed: "&a%player% is not jailed!"
+    # Message sent when specified player is jailed
+    checkjail-is-jailed: "&c%player% is jailed! Until: %until%. Reason: %reason%"
+    # Message sent when some tries to jail a player before jail and/or unjail point is defined
+    jail-unjail-does-not-exist: "&cJail and/or unjail point does not exist!"
+    # Message sent when specified player can"t use a command while jailed
+    cant-use-this-command: "&cYou can't use this command while jailed!"
+# Option to allow/disallow certain commands while in jail
+commands:
+    # Which system to use (whitelist/blacklist/disabled) (if it"s disabled, players might be able to teleport out of the prison)
+    filter: whitelist
+    # List of commands that are allowed in jail
+    # If you want to completely block all commands, put "filter: whitelist" and a random text under "filtered-list:" (i.e. "- lsfdjb")
+    filtered-list:
+        - tell
+        - whisper
+        - me
+        - help
+# Some other options
+options:
+    # Should we use UUID"s (true) or player names (false)
+    # !!!EXPERIMENTAL!!! MAKE A BACKUP OF THIS CONFIG BEFORE CHANGING THIS VALUE
+    uuid: false
+    # Whether or not jailed players should be teleported to jailpoint every time they log in
+    jail-on-login: false
+    # Format used to replace %until%. Look up "Java SimpleDateFormat"
+    timeformat: "dd.MM.yyyy HH:mm"
