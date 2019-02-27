@@ -2,6 +2,7 @@ package me.Prunt.simplejail;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -114,7 +115,7 @@ public class Main extends JavaPlugin implements Listener {
 	    public void run() {
 
 		// Gets current Unix Timestamp
-		long epoch = System.currentTimeMillis() / 1000;
+		long epoch = Instant.now().getEpochSecond();
 
 		// Loops through online players
 		for (Player p : getServer().getOnlinePlayers()) {
@@ -449,8 +450,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param loc
-     *            - Location of unjail point
+     * @param loc - Location of unjail point
      */
     public void setUnjailLoc(Location loc) {
 
@@ -476,8 +476,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param loc
-     *            - Location of jail point
+     * @param loc - Location of jail point
      */
     public void setJailLoc(Location loc) {
 
@@ -503,8 +502,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to check jail status for
+     * @param p - Player to check jail status for
      */
     public boolean isJailed(Player p) {
 	// Checks if specified player is in jailed players' list
@@ -512,8 +510,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - OfflinePlayer to check jail status for
+     * @param p - OfflinePlayer to check jail status for
      */
     public boolean isJailed(OfflinePlayer p) {
 	// Checks if specified player is in jailed players' list
@@ -521,8 +518,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param time
-     *            - Unix Timestamp to format
+     * @param time - Unix Timestamp to format
      * @return Formatted timestamp
      */
     private String getTime(long time) {
@@ -539,8 +535,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to teleport to jail
+     * @param p - Player to teleport to jail
      */
     public Location getJailLoc() {
 
@@ -556,8 +551,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to unjail
+     * @param p - Player to unjail
      */
     public void unjail(Player p) {
 	removeJailed(p);
@@ -587,8 +581,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player name to unjail while offline
+     * @param p - Player name to unjail while offline
      */
     public void unjailOffline(OfflinePlayer p) {
 	removeJailed(p);
@@ -614,8 +607,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to check if they have been jailed offline
+     * @param p - Player to check if they have been jailed offline
      * @return If player has been jailed while offline
      */
     public boolean jailedOffline(Player p) {
@@ -625,8 +617,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to check if they have been unjailed offline
+     * @param p - Player to check if they have been unjailed offline
      * @return If player has been unjailed while offline
      */
     public boolean unjailedOffline(Player p) {
@@ -636,8 +627,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to send to jail again (respawn or login)
+     * @param p - Player to send to jail again (respawn or login)
      */
     private void toJailAgain(Player p) {
 
@@ -669,8 +659,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param time
-     *            - Time string to calculate timestamp from
+     * @param time - Time string to calculate timestamp from
      * @return If 0, then wrong format, else timestamp
      */
     private long getUntil(String time) {
@@ -684,7 +673,7 @@ public class Main extends JavaPlugin implements Listener {
 	String[] list = time.split("/(,?\\s+)|((?<=[a-z])(?=\\d))|((?<=\\d)(?=[a-z]))/i");
 
 	// Gets current Unix Timestamp
-	long until = System.currentTimeMillis() / 1000;
+	long until = Instant.now().getEpochSecond();
 
 	// Loops through duration list
 	for (String str : list) {
@@ -712,12 +701,9 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to jail
-     * @param time
-     *            - Unix Timestamp of release time
-     * @param reason
-     *            - Reason for jailing
+     * @param p      - Player to jail
+     * @param time   - Unix Timestamp of release time
+     * @param reason - Reason for jailing
      */
     public void jail(Player p, long time, String reason) {
 	removeUnjailed(p);
@@ -743,12 +729,9 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param p
-     *            - Player to jail while offline
-     * @param time
-     *            - Unix Timestamp of release time
-     * @param reason
-     *            - Reason for jailing
+     * @param p      - Player to jail while offline
+     * @param time   - Unix Timestamp of release time
+     * @param reason - Reason for jailing
      */
     public void jailOffline(OfflinePlayer p, long time, String reason) {
 	removeUnjailed(p);
@@ -777,12 +760,9 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param name
-     *            - Player name to add to jail
-     * @param time
-     *            - Unix Timestamp of release time
-     * @param reason
-     *            - Reason for jailing
+     * @param name   - Player name to add to jail
+     * @param time   - Unix Timestamp of release time
+     * @param reason - Reason for jailing
      */
     private void addToConfig(String name, long time, String reason) {
 
@@ -796,8 +776,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param player
-     *            - Player name to remove from jailed list
+     * @param player - Player name to remove from jailed list
      */
     private void removeJailed(Player p) {
 	// Creates new list
@@ -821,8 +800,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param player
-     *            - Player name to remove from jailed list
+     * @param player - Player name to remove from jailed list
      */
     private void removeJailed(OfflinePlayer p) {
 	// Creates new list
@@ -846,8 +824,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param player
-     *            - Player name to remove from unjailed list
+     * @param player - Player name to remove from unjailed list
      */
     private void removeUnjailed(Player p) {
 	// Creates new list
@@ -870,8 +847,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     /**
-     * @param player
-     *            - Player name to remove from unjailed list
+     * @param player - Player name to remove from unjailed list
      */
     private void removeUnjailed(OfflinePlayer p) {
 	// Creates new list
