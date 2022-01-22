@@ -1,10 +1,10 @@
-main: me.Prunt.simplejail.Main
+main: me.prunt.simplejail.Main
 author: Prunt
 version: 2.2
 name: SimpleJail
 website: https://www.spigotmc.org/resources/simplejail.10079/
 description: Very simple plugin to jail rulebreakers for a specified time!
-api-version: 1.16
+api-version: 1.18
 
 commands:
   jail:
