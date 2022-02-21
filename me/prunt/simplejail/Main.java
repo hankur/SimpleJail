@@ -10,15 +10,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
+
+/*
+TODO:
+    - TP Event
+    - Interact Event
+ */
 
 public class Main extends JavaPlugin implements Listener {
     @Override
@@ -38,6 +43,36 @@ public class Main extends JavaPlugin implements Listener {
 
         // Creates scheduler to unjail players when necessary every 1 minute
         createUnjailScheduler();
+    }
+
+    @EventHandler
+    public void onPlayerHit(EntityDamageByEntityEvent e){
+        if(e.getDamager() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-do-this"));
+                e.setCancelled(true);
+            }
+        }
+        if(e.getDamager() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-do-this"));
+                e.setCancelled(true);
+            }
+        }
+    }
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent e){
+        if(isJailed(e.getPlayer())){
+            e.getPlayer().sendMessage(getMessage("messages.cant-use-this"));
+            e.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e){
+        if(isJailed(e.getPlayer())){
+            e.getPlayer().sendMessage(getMessage("messages.cant-use-this"));
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
@@ -315,13 +350,13 @@ public class Main extends JavaPlugin implements Listener {
      * @param reason - Reason for jailing
      */
     public void jail(Player p, long time, String reason) {
+        // Teleports to jail
+        p.teleport(getJailLoc());
+
         removeFromConfig(p, "jailed");
 
         // Adds to config file
         addToConfig(getName(p), time, reason);
-
-        // Teleports to jail
-        p.teleport(getJailLoc());
 
         // Gets nicely formatted time of release
         String until = getTime(time);
