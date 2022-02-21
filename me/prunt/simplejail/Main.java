@@ -12,6 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.DateFormat;
@@ -44,7 +45,15 @@ public class Main extends JavaPlugin implements Listener {
         // Creates scheduler to unjail players when necessary every 1 minute
         createUnjailScheduler();
     }
-
+    @EventHandler
+    public void onVehicleEnter(VehicleEnterEvent e){
+        if(e.getEntered() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-enter-in-vehicle"));
+                e.setCancelled(true);
+            }
+        }
+    }
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e){
         if(e.getDamager() instanceof Player player){
