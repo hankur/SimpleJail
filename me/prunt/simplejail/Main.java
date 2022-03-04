@@ -20,12 +20,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
-/*
-TODO:
-    - TP Event
-    - Interact Event
- */
-
 public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
@@ -45,6 +39,7 @@ public class Main extends JavaPlugin implements Listener {
         // Creates scheduler to unjail players when necessary every 1 minute
         createUnjailScheduler();
     }
+
     @EventHandler
     public void onVehicleEnter(VehicleEnterEvent e){
         if(e.getEntered() instanceof Player player){
@@ -54,6 +49,7 @@ public class Main extends JavaPlugin implements Listener {
             }
         }
     }
+
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e){
         if(e.getDamager() instanceof Player player){
@@ -62,13 +58,14 @@ public class Main extends JavaPlugin implements Listener {
                 e.setCancelled(true);
             }
         }
-        if(e.getDamager() instanceof Player player){
+        if(e.getEntity() instanceof Player player){
             if(isJailed(player)){
                 player.sendMessage(getMessage("messages.cant-do-this"));
                 e.setCancelled(true);
             }
         }
     }
+
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent e){
         if(isJailed(e.getPlayer())){
@@ -76,6 +73,7 @@ public class Main extends JavaPlugin implements Listener {
             e.setCancelled(true);
         }
     }
+
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
         if(isJailed(e.getPlayer())){
@@ -359,13 +357,13 @@ public class Main extends JavaPlugin implements Listener {
      * @param reason - Reason for jailing
      */
     public void jail(Player p, long time, String reason) {
-        // Teleports to jail
-        p.teleport(getJailLoc());
-
         removeFromConfig(p, "jailed");
 
         // Adds to config file
         addToConfig(getName(p), time, reason);
+
+        // Teleports to jail
+        p.teleport(getJailLoc());
 
         // Gets nicely formatted time of release
         String until = getTime(time);
