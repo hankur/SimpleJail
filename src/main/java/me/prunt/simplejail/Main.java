@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.DateFormat;
@@ -38,6 +38,48 @@ public class Main extends JavaPlugin implements Listener {
 
         // Creates scheduler to unjail players when necessary every 1 minute
         createUnjailScheduler();
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onVehicleEnter(VehicleEnterEvent e){
+        if(e.getEntered() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-enter-in-vehicle"));
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPlayerHit(EntityDamageByEntityEvent e){
+        if(e.getDamager() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-do-this"));
+                e.setCancelled(true);
+            }
+        }
+        if(e.getEntity() instanceof Player player){
+            if(isJailed(player)){
+                player.sendMessage(getMessage("messages.cant-do-this"));
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPlayerTeleport(PlayerTeleportEvent e){
+        if(isJailed(e.getPlayer())){
+            e.getPlayer().sendMessage(getMessage("messages.cant-use-this"));
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    public void onPlayerInteract(PlayerInteractEvent e){
+        if(isJailed(e.getPlayer())){
+            e.getPlayer().sendMessage(getMessage("messages.cant-use-this"));
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
