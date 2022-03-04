@@ -44,6 +44,12 @@ messages:
     jail-unjail-does-not-exist: "&cJail and/or unjail point does not exist!"
     # Message sent when specified player can"t use a command while jailed
     cant-use-this-command: "&cYou can't use this command while jailed!"
+    # Message sent when specified player can"t do a thing while jailed
+    cant-do-this: "&cYou can't do this while jailed!"
+    # Message sent when specified player can"t use a thing while jailed
+    cant-use-this: "&cYou can't use this while jailed!"
+    # Message sent when specified player can"t enter in a vehicle while jailed
+    cant-enter-in-vehicle: "&cYou can't enter in this a while jailed!"
 # Option to allow/disallow certain commands while in jail
 commands:
     # Which system to use (whitelist/blacklist/disabled) (if it"s disabled, players might be able to teleport out of the prison)
